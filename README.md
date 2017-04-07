@@ -21,7 +21,7 @@ Components for [Nest Camera](https://nest.com/camera/meet-nest-cam/):
 
 Make sure you have already installed and properly configured the [Nest Component](https://home-assistant.io/components/nest/)  for Home-Assistant.
 
-1. Download and place nestcameras.py files in the home-assistant folder like this (you may have to create the folder:
+1. Download and place nestcameras.py files in the home-assistant folder like this (you may have to create the folder if it doesn't already exist):
 
     - .homeassistant/custom_components/switch/nestcameras.py
   
