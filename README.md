@@ -16,6 +16,8 @@ Components for [Nest Camera](https://nest.com/camera/meet-nest-cam/):
 
 * **Switch** - (``nestcameras``) a simple on/off switch that turns Nest camara streaming on or off
   * ``nestcameras`` includes on/off switch for camera streaming
+  
+![Nest Cameras Dashboard](/images/nestcameras.png?raw=true "Home Assistant Dashboard Sample For Nest Camera Switches Components")
 
 ## Instalation
 
@@ -32,4 +34,4 @@ Make sure you have already installed and properly configured the [Nest Component
        platform: nestcameras
     ```
 
-5. Restart the home assistant service.
+5. Restart the Home Assistant service.
