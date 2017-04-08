@@ -7,14 +7,12 @@ _LOGGER = logging.getLogger(__name__)
 DEPENDENCIES = ['nest']
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
-
     """Set up a Nest Cameras as Switches"""
     camera_devices = hass.data[nest.DATA_NEST].cameras()
     cameras = [NestCameraSwitch(structure, device)
                for structure, device in camera_devices]
 
     add_devices(cameras, True)
-
 
 class NestCameraSwitch(ToggleEntity):
     """Representation of a Nest Camera as switch."""
@@ -48,24 +46,33 @@ class NestCameraSwitch(ToggleEntity):
         """Return true if switch is on."""
         return self._is_streaming
 
+    @property
+    def is_online(self):
+        """Return true if camera is online."""
+        return self._online
+
     def turn_on(self):
-        self._turn_switch('on')
+        """Only toggle lights if camera is online."""
+        if self.is_online == True:
+            self._turn_switch('on')
 
     def turn_off(self):
-        self._turn_switch('off')
+        """Only toggle lights if camera is online."""
+        if self.is_online == True:
+            self._turn_switch('off')
 
     def _turn_switch(self, state):
         try:
-            if state == 'off': 
+            if state == 'off':
                 self.device._set('devices/cameras', {'is_streaming': False})
-                self._online = False
+                self._is_streaming = False
             else:
                 self.device._set('devices/cameras', {'is_streaming': True})
-                self._online = True
+                self._is_streaming = True
         except nest.nest.APIError as error:
             _LOGGER.error("Error updating camera streaming status: %s", error)
-       
-        super().schedule_update_ha_state()           
+
+        super().schedule_update_ha_state()
 
     def update(self):
         """Cache value from Python-nest."""
